@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
@@ -34,6 +34,18 @@ import {
 } from "lucide-react";
 
 export default function WorkflowsPage() {
+  return (
+    <Suspense fallback={
+      <div className="flex items-center justify-center min-h-screen">
+        <Loader2 className="h-8 w-8 animate-spin text-gray-400" />
+      </div>
+    }>
+      <WorkflowsContent />
+    </Suspense>
+  );
+}
+
+function WorkflowsContent() {
   const [workflows, setWorkflows] = useState<Workflow[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
@@ -200,8 +212,8 @@ export default function WorkflowsPage() {
         <div className="fixed top-4 right-4 z-50 animate-fade-in">
           <div
             className={`flex items-center gap-2 px-4 py-2.5 rounded-xl border shadow-lg ${toast.type === "success"
-                ? "bg-emerald-50 border-emerald-200 text-emerald-700"
-                : "bg-red-50 border-red-200 text-red-600"
+              ? "bg-emerald-50 border-emerald-200 text-emerald-700"
+              : "bg-red-50 border-red-200 text-red-600"
               }`}
           >
             {toast.type === "success" ? (
@@ -239,8 +251,8 @@ export default function WorkflowsPage() {
                 <button
                   onClick={() => setContentMode("auto")}
                   className={`flex-1 px-3 py-2 rounded-lg text-xs font-medium border transition-colors ${contentMode === "auto"
-                      ? "bg-emerald-50 border-emerald-500 text-emerald-600"
-                      : "border-gray-200 text-gray-500 hover:text-gray-900"
+                    ? "bg-emerald-50 border-emerald-500 text-emerald-600"
+                    : "border-gray-200 text-gray-500 hover:text-gray-900"
                     }`}
                 >
                   <Rocket className="h-3.5 w-3.5 inline mr-1.5" />
@@ -249,8 +261,8 @@ export default function WorkflowsPage() {
                 <button
                   onClick={() => setContentMode("custom")}
                   className={`flex-1 px-3 py-2 rounded-lg text-xs font-medium border transition-colors ${contentMode === "custom"
-                      ? "bg-emerald-50 border-emerald-500 text-emerald-600"
-                      : "border-gray-200 text-gray-500 hover:text-gray-900"
+                    ? "bg-emerald-50 border-emerald-500 text-emerald-600"
+                    : "border-gray-200 text-gray-500 hover:text-gray-900"
                     }`}
                 >
                   <Edit className="h-3.5 w-3.5 inline mr-1.5" />
