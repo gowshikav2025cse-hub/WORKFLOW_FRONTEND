@@ -1,26 +1,338 @@
 @import "tailwindcss";
 
+/* ═══════════════════════════════════════════
+   FlowCraft — Clean Light Theme
+   Green Accent · Professional & Modern
+   ═══════════════════════════════════════════ */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Brand — Emerald Green */
+  --accent: #059669;
+  --accent-light: #10b981;
+  --accent-glow: rgba(16, 185, 129, 0.18);
+  --accent-muted: rgba(16, 185, 129, 0.08);
+  --accent-dark: #047857;
+  --success: #22c55e;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+  --info: #3b82f6;
+
+  /* Surfaces — Light */
+  --background: #f8faf9;
+  --background-secondary: #f0f5f2;
+  --card: #ffffff;
+  --card-hover: #f0fdf4;
+  --surface: #f0f5f2;
+  --surface-hover: #e8f0eb;
+  --border: #e2e8e4;
+  --border-active: rgba(5, 150, 105, 0.35);
+
+  /* Text */
+  --text-primary: #111827;
+  --text-secondary: #4b5563;
+  --text-muted: #9ca3af;
+  --text-accent: #059669;
+
+  /* Radius */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* ═══════════════════════
+   Base
+   ═══════════════════════ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
+  margin: 0;
+  padding: 0;
   background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  color: var(--text-primary);
+  font-family: var(--font-geist-sans, 'Geist', system-ui, -apple-system, sans-serif);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* ═══════════════════════
+   Scrollbar
+   ═══════════════════════ */
+
+.scrollbar-thin::-webkit-scrollbar {
+  width: 4px;
+}
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.08);
+  border-radius: 99px;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.08);
+  border-radius: 99px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.14);
+}
+
+/* ═══════════════════════
+   React Flow Overrides
+   ═══════════════════════ */
+
+.react-flow__background {
+  background: var(--background) !important;
+}
+
+.react-flow__minimap {
+  background: #fff !important;
+  border: 1px solid var(--border) !important;
+  border-radius: var(--radius-md) !important;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06) !important;
+}
+
+.react-flow__controls {
+  background: #fff !important;
+  border: 1px solid var(--border) !important;
+  border-radius: var(--radius-md) !important;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06) !important;
+  overflow: hidden;
+}
+
+.react-flow__controls-button {
+  background: transparent !important;
+  border-color: var(--border) !important;
+  color: var(--text-secondary) !important;
+  fill: var(--text-secondary) !important;
+  transition: all 0.2s ease;
+}
+
+.react-flow__controls-button:hover {
+  background: var(--surface) !important;
+  color: var(--text-primary) !important;
+  fill: var(--text-primary) !important;
+}
+
+.react-flow__edge-path {
+  stroke: #d1d5db !important;
+  stroke-width: 2px !important;
+}
+
+.react-flow__edge.animated .react-flow__edge-path {
+  stroke: var(--accent-light) !important;
+  stroke-width: 2px !important;
+  stroke-dasharray: 6 4;
+  animation: flowEdge 1s linear infinite;
+}
+
+.react-flow__connection-path {
+  stroke: var(--accent) !important;
+  stroke-width: 2px !important;
+}
+
+.react-flow__handle {
+  transition: all 0.15s ease;
+}
+
+.react-flow__handle:hover {
+  transform: scale(1.3);
+}
+
+/* Remove React Flow node wrapper styling — let CustomNode control everything */
+.react-flow__node {
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+.react-flow__node:hover {
+  box-shadow: none !important;
+}
+
+.react-flow__node.selected {
+  box-shadow: none !important;
+}
+
+.react-flow__attribution {
+  display: none !important;
+}
+
+/* ═══════════════════════
+   Glass Card (Light)
+   ═══════════════════════ */
+
+.glass-card {
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  transition: all 0.2s ease;
+}
+
+.glass-card:hover {
+  border-color: #d1d5db;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+}
+
+/* ═══════════════════════
+   Gradient Backgrounds
+   ═══════════════════════ */
+
+.gradient-mesh {
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(16, 185, 129, 0.04) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(5, 150, 105, 0.03) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 80%, rgba(34, 197, 94, 0.02) 0%, transparent 50%),
+    var(--background);
+}
+
+.gradient-accent {
+  background: linear-gradient(135deg, #059669, #10b981, #34d399);
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #059669, #10b981);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ═══════════════════════
+   Status Indicator
+   ═══════════════════════ */
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+
+.status-dot-success {
+  background: var(--success);
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.15);
+}
+
+.status-dot-warning {
+  background: var(--warning);
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.15);
+}
+
+.status-dot-danger {
+  background: var(--danger);
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
+}
+
+/* ═══════════════════════
+   Animations
+   ═══════════════════════ */
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInScale {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(12px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-12px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes flowEdge {
+  to { stroke-dashoffset: -10; }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.35s ease-out both;
+}
+
+.animate-fade-in-scale {
+  animation: fadeInScale 0.25s ease-out both;
+}
+
+.animate-slide-right {
+  animation: slideInRight 0.25s ease-out both;
+}
+
+.animate-slide-left {
+  animation: slideInLeft 0.25s ease-out both;
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.03), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+/* ═══════════════════════
+   Staggered animation delays
+   ═══════════════════════ */
+
+.delay-0 { animation-delay: 0ms; }
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
+
+/* ═══════════════════════
+   Utility
+   ═══════════════════════ */
+
+.no-drag {
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
+.line-clamp-1 {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+::selection {
+  background: rgba(16, 185, 129, 0.2);
 }
